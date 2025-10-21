@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+// استخدام المفتاح من متغيرات البيئة أو المفتاح الافتراضي
+const API_KEY = import.meta.env.VITE_API_KEY || 'AIzaSyAXqKLxVLKCOqJqLqxqxqxqxqxqxqxqxqxq';
 
 if (!API_KEY || API_KEY === 'AIzaSyDSKeyLxVLKCOqJqLqxqxqxqxqxqxqxqxq') {
   console.error("⚠️ مفتاح API غير صحيح!");

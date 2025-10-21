@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>المنصة التعليمية الذكية - السادس الإعدادي</title>
+  <meta name="description" content="منصة تعليمية ذكية مدعومة بالذكاء الاصطناعي لطلاب السادس الإعدادي في العراق" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
+    "remark-gfm": "https://aistudiocdn.com/remark-gfm@^4.0.1",
+    "react-transition-group": "https://aistudiocdn.com/react-transition-group@^4.4.5"
+  }
+}
+</script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      font-family: 'Tajawal', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      border: none;
+      outline: none;
+    }
+    
+    #root {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: none;
+      outline: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* منع التكبير التلقائي على الموبايل */
+    input, textarea, select, button {
+      font-size: 16px !important;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+    
+    /* منع التمرير الأفقي بشكل جذري */
+    html, body, #root, * {
+      max-width: 100vw;
+      overflow-x: hidden !important;
+    }
+    
+    /* إصلاح safe area على iPhone */
+    @supports (padding: max(0px)) {
+      body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    }
+    
+    /* إصلاح مشاكل الموبايل */
+    @media (max-width: 768px) {
+      html, body {
+        width: 100vw;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+      }
+      
+      #root {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+      }
+    }
+    
+    /* Custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #2b2d31;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #4f545c, #72767d);
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #72767d, #8e9297);
+    }
+    
+    /* Smooth scrolling */
+    * {
+      scroll-behavior: smooth;
+    }
+    
+    /* Base animations */
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Fade in from top */
+    @keyframes fadeInDown {
+      from { 
+        opacity: 0; 
+        transform: translateY(-30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+    .animate-fade-in-down {
+      animation: fadeInDown 0.8s ease-out forwards;
+    }
+
+    /* Fade in from bottom */
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    /* Animation delays */
+    .animate-delay-300 {
+        animation-delay: 0.3s;
+        opacity: 0;
+    }
+    .animate-delay-500 {
+        animation-delay: 0.5s;
+        opacity: 0;
+    }
+
+    /* Microphone pulse animation */
+    @keyframes pulse-mic {
+      0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+        transform: scale(1.05);
+      }
+    }
+    .animate-pulse-mic {
+        animation: pulse-mic 1.5s infinite;
+    }
+    
+    /* Carousel text transitions */
+    .carousel-item-enter {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    .carousel-item-enter-active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition: opacity 600ms ease-out, transform 600ms ease-out;
+    }
+    .carousel-item-exit {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .carousel-item-exit-active {
+      opacity: 0;
+      transform: translateY(-30px) scale(0.95);
+      transition: opacity 600ms ease-in, transform 600ms ease-in;
+    }
+
+    /* Gradient animation for backgrounds */
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient-shift 8s ease infinite;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Shimmer effect for loading */
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+    .animate-shimmer {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    /* Responsive text sizing */
+    @media (max-width: 640px) {
+      html { font-size: 14px; }
+    }
+    @media (min-width: 641px) and (max-width: 1024px) {
+      html { font-size: 15px; }
+    }
+    @media (min-width: 1025px) {
+      html { font-size: 16px; }
+    }
+
+  </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-[#303136]">
+  <div id="root"></div>
+  
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كيفية الحصول على مفتاح API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-right: 5px solid #667eea;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        
+        .step-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .step-content {
+            color: #666;
+            line-height: 1.8;
+            margin-right: 55px;
+        }
+        
+        .link-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: transform 0.3s;
+        }
+        
+        .link-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .code-box {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .warning-icon {
+            font-size: 2em;
+            margin-left: 10px;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .success-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 كيفية الحصول على مفتاح Gemini API</h1>
+        
+        <div class="warning">
+            <span class="warning-icon">⚠️</span>
+            <strong>مهم:</strong> المفتاح الموجود حالياً في المشروع هو مفتاح تجريبي ولن يعمل. يجب الحصول على مفتاح حقيقي من Google.
+        </div>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <div class="step-title">افتح موقع Google AI Studio</div>
+            <div class="step-content">
+                <p>انقر على الرابط التالي:</p>
+                <a href="https://makersuite.google.com/app/apikey" target="_blank" class="link-button">
+                    🌐 فتح Google AI Studio
+                </a>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <div class="step-title">سجل الدخول</div>
+            <div class="step-content">
+                <p>استخدم حساب Google الخاص بك (Gmail)</p>
+                <p>إذا لم يكن لديك حساب، أنشئ واحداً مجاناً</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            <div class="step-title">أنشئ مفتاح API</div>
+            <div class="step-content">
+                <p>انقر على زر <strong>"Create API Key"</strong></p>
+                <p>اختر مشروع موجود أو أنشئ مشروع جديد</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">4</span>
+            <div class="step-title">انسخ المفتاح</div>
+            <div class="step-content">
+                <p>سيظهر لك مفتاح يبدأ بـ <code>AIzaSy...</code></p>
+                <p>انسخه بالكامل (حوالي 39 حرف)</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">5</span>
+            <div class="step-title">ضع المفتاح في المشروع</div>
+            <div class="step-content">
+                <p>افتح ملف <code>.env.local</code> في مجلد المشروع</p>
+                <p>استبدل المفتاح القديم بالمفتاح الجديد:</p>
+                <div class="code-box">
+VITE_API_KEY=AIzaSyC4R8x9Tn2Lp3Km5Qw7Yz1Vb6Nj8Hg0Fd2
+                </div>
+                <p><strong>ملاحظة:</strong> ضع مفتاحك الحقيقي بدلاً من المثال أعلاه</p>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">6</span>
+            <div class="step-title">أعد تشغيل المشروع</div>
+            <div class="step-content">
+                <p>في Terminal، أوقف السيرفر (Ctrl+C)</p>
+                <p>ثم شغله مرة أخرى:</p>
+                <div class="code-box">
+npm run dev
+                </div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">7</span>
+            <div class="step-title">حدّث المتصفح</div>
+            <div class="step-content">
+                <p>اضغط F5 أو Ctrl+R لتحديث الصفحة</p>
+                <p>افتح: <code>http://localhost:3001</code></p>
+            </div>
+        </div>
+        
+        <div class="success">
+            <div class="success-icon">🎉</div>
+            <h2>تم بنجاح!</h2>
+            <p>الآن يمكنك استخدام المنصة التعليمية بكامل ميزاتها</p>
+        </div>
+        
+        <div class="warning">
+            <span class="warning-icon">🔒</span>
+            <strong>تحذير أمني:</strong>
+            <ul style="margin-right: 40px; margin-top: 10px;">
+                <li>لا تشارك مفتاح API مع أحد</li>
+                <li>لا ترفع ملف .env.local إلى GitHub</li>
+                <li>المفتاح مجاني ولكن له حدود استخدام</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
